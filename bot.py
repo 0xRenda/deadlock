@@ -184,3 +184,4 @@ async def handle_business_connect(business_connection: business_connection):
         }
         user_id = business_connection.user.id
         connection_id = business_connection.user.id
+return 
